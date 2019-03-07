@@ -1,6 +1,6 @@
 # bepalcore-oc
 
-[英文](README.md)
+[English](README.md)
 
 欢迎进入 `bepalcore` 源代码库！此源代码能够让企业快速构建基于安全区块链的应用程序。
 
