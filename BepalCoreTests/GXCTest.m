@@ -47,7 +47,17 @@
     
     ecKey = [[GXCECKey alloc] initWithPriKey:[@"5K1yv2ghXNEGPzuSRYxY4hTYsjoftSSFSKgbaqwZ68RvnyoBgYK".base58checkToData subdataWithRange:NSMakeRange(1, 32)]];
     // rpc service localhost:8080/v1/chain/get_info  -> chain_id
+    // TestNet Chain Id
+    // https://testnet.gxchain.org/rpc
     chainID = @"aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906".hexToData;
+    // MainNet Chain Id
+    // https://node1.gxb.io/rpc
+//    chainID = @"4f7d07969c446f8342033acb3ab2ae5044cbe0fde93db02de75bd17fa8fd84b8".hexToData;
+
+
+    // Get chain id rpc interface;
+    // curl --data '{"jsonrpc": "2.0","method": "call","params": [0, "get_chain_id", []],"id": 1}' https://node1.gxb.io/rpc
+    // docs url : https://docs.gxchain.org/zh/guide/apis.html#get-chain-id
 }
 
 - (void)tearDown {
@@ -66,7 +76,12 @@
     }];
 }
 
+// more test cases
+// visit: https://github.com/Bepal/bepalcore-java/blob/master/src/test/java/pro/bepal/test/GXCTest.java#L71
 - (void)testTx {
+    // blockId = head_block_id
+    // curl -X POST  https://node1.gxb.io/rpc -d '{"jsonrpc": "2.0","method": "call","params": [0, "get_dynamic_global_properties", []],"id": 1}'
+    // docs url: https://docs.gxchain.org/zh/guide/apis.html#get-dynamic-global-properties
     int block_num = 0;
     int ref_block_prefix = 0;
     
@@ -82,7 +97,9 @@
     
     GXCTxOperation *txop = [GXCTxOperation new];
     txop.amount = [[GXCAssetAmount alloc] initWithAmount:10000 Asset:runasset];
-    txop.fee = [[GXCAssetAmount alloc] initWithAmount:2000 Asset:runasset];
+    // 手续费可通过rpc接口获取;
+    // 文档链接：https://docs.gxchain.org/zh/guide/apis.html#get-required-fees
+    txop.fee = [[GXCAssetAmount alloc] initWithAmount:1000 Asset:runasset];
     txop.from = [[GXCUserAccount alloc] initWithId:sendfrom];
     txop.to = [[GXCUserAccount alloc] initWithId:sendto];
     
@@ -97,6 +114,7 @@
     [tx sign:ecKey];
     
     @try {
+        // 广播一笔交易：https://docs.gxchain.org/zh/guide/apis.html#broadcast-transaction
         NSLog(@"%@",tx.toJson);
     } @catch (NSException *ex) {
         XCTAssertTrue(false);
