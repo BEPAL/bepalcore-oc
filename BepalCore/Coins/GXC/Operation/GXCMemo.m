@@ -62,7 +62,7 @@
         [data appendUInt8:1];
         [data appendData:_from.getKey.publicKeyAsData];
         [data appendData:_to.getKey.publicKeyAsData];
-        [data appendData:_nonce.reverse];
+        [data appendData:_nonce];
         [data appendUInt8:_enMessage.length];
         [data appendData:_enMessage];
     }
@@ -82,7 +82,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic setValue:_from.description forKey:GXC_KEY_FROM];
     [dic setValue:_to.description forKey:GXC_KEY_TO];
-    [dic setValue:@([_nonce UInt64AtOffset:0]) forKey:GXC_KEY_NONCE];
+    [dic setValue:[NSString stringWithFormat:@"%llu",[_nonce UInt64AtOffset:0]] forKey:GXC_KEY_NONCE];
     [dic setValue:[_enMessage hexString] forKey:GXC_KEY_MESSAGE];
     return dic;
 }
