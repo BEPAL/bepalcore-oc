@@ -14,8 +14,8 @@ The project was spun off from the `BEPAL-Wallet` core.
 
 Public links that are supported and open source include:
 
+1. [GXC](https://github.com/gxchain/gxb-core/) trusted data block chain.
 1. [EOS](https://github.com/EOSIO/eos) contract.
-1. [GXC](https://github.com/gxchain/gxb-core/) contract.
 
 Follow up the GXC and support other contracts.
 
