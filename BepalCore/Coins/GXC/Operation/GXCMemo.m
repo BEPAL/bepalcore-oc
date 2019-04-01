@@ -82,7 +82,7 @@
         [data appendData:_from.getKey.publicKeyAsData];
         [data appendData:_to.getKey.publicKeyAsData];
         [data appendData:_nonce];
-        [data appendUInt8:_enMessage.length];
+        [data appendUVar:_enMessage.length];
         [data appendData:_enMessage];
     }
     return data;
